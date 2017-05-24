@@ -36,6 +36,15 @@ else:
 # Timestamp based verification shouldn't be used in production. Use at own risk
 # app.config['ASK_VERIFY_TIMESTAMP_DEBUG'] = True
 
+try:
+  DISABLE_REQUESTS_VERIFICATION = config.get('alexa', 'disable_requests_verification')
+  if DISABLE_REQUESTS_VERIFICATION and DISABLE_REQUESTS_VERIFICATION.lower() == 'true':
+    app.config['ASK_VERIFY_REQUESTS'] = False
+    print "REQUESTS_VERIFICATION"
+    print REQUESTS_VERIFICATION
+except:
+  pass
+
 # Needs to be instanced after app is configured
 ask = Ask(app, "/", None, path=TEMPLATE_FILE)
 
